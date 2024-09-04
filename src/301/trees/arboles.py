@@ -1,14 +1,14 @@
 
-
-class Node:
-    def __init__(self, value) -> None:
+class Node():
+    def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
 
 
 class BinarySearchTree:
-    def __init__(self) -> None:
+
+    def __init__(self):
         self.root = None
 
     def insert(self, value):
@@ -23,32 +23,21 @@ class BinarySearchTree:
             if new_node.value < temp.value:
                 if temp.left is None:
                     temp.left = new_node
-                    return True
-                temp = temp.left
-            else:
+            if new_node.value > temp.value:
                 if temp.right is None:
                     temp.right = new_node
-                    return True
-                temp = temp.right
 
-    def contains(self, value):
-        temp = self.root
-        while temp is not None:
-            if value < temp.value:
-                temp = temp.left
-            elif value > temp.value:
-                temp = temp.right
-            else:
-                return True
-        return False
-
-    def dfs_pre_order(self):
+    def BFS(self):
+        current_node = self.root
+        queue = []
         results = []
-        def traverse(current_node):
+        queue.append(current_node.value)
+
+        while (len(queue)>0):
+            current_node = queue.pop(0)
             results.append(current_node.value)
             if current_node.left is not None:
-                traverse(current_node.left)
+               queue.append(current_node.left)
             if current_node.right is not None:
-                traverse(current_node.right)
-            traverse(self.root)
-            return results
+                queue.append(current_node.right)
+
